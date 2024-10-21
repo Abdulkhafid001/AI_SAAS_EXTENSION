@@ -1,10 +1,16 @@
+let isHighlightMode = false;
+
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  if (request.action === "changeColor") {
-    document.body.style.backgroundColor = request.color;
-    // Force the color change by setting !important
-    document.body.setAttribute(
-      "style",
-      `background-color: ${request.color} !important`
-    );
+  if (request.action === "toggleHighlightMode") {
+    isHighlightMode = request.enable;
+  }
+});
+
+document.addEventListener("mouseup", function () {
+  if (isHighlightMode) {
+    const selectedText = window.getSelection().toString().trim();
+    if (selectedText) {
+      alert(`Selected text: ${selectedText}`);
+    }
   }
 });

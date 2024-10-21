@@ -1,3 +1,6 @@
 chrome.runtime.onInstalled.addListener(() => {
-  console.log("Background Color Changer extension installed");
+  console.log("Text Highlighter extension installed");
 });
+
+// send request in a background and persist it.
+console.log();
