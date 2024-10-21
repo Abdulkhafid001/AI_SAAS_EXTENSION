@@ -3,6 +3,7 @@ let isHighlightMode = false;
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.action === "toggleHighlightMode") {
     isHighlightMode = request.enable;
+    console.log("Highlight mode:", isHighlightMode ? "enabled" : "disabled");
   }
 });
 
