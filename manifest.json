@@ -5,7 +5,8 @@
     "description": "Changes the background color of web pages",
     "permissions": [
         "activeTab",
-        "scripting"
+        "scripting",
+        "storage"
     ],
     "action": {
         "default_popup": "popup.html"
