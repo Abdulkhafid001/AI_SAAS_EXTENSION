@@ -28,7 +28,11 @@ document.addEventListener("DOMContentLoaded", function () {
           action: "changeColor",
           color: color,
         });
+
       });
+
     });
+
   });
+  
 });
