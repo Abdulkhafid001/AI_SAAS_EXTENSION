@@ -1,17 +1,15 @@
-let isHighlightMode = false;
+// let isHighLightMode = false;
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  if (request.action === "toggleHighlightMode") {
-    isHighlightMode = request.enable;
-    console.log("Highlight mode:", isHighlightMode ? "enabled" : "disabled");
+  if (request.action === "toggleHighLightMode") {
+    // isHighLightMode = request.enable;
+    console.log(`isHighLightMode: ${isHighLightMode}`);
   }
 });
 
 document.addEventListener("mouseup", function () {
-  if (isHighlightMode) {
-    const selectedText = window.getSelection().toString().trim();
-    if (selectedText) {
-      alert(`Selected text: ${selectedText}`);
-    }
+  const selectedText = window.getSelection().toString().trim();
+  if (selectedText) {
+    alert(`Selected text: ${selectedText}`);
   }
 });
