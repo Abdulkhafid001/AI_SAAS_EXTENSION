@@ -38,22 +38,18 @@ document.addEventListener("DOMContentLoaded", function () {
   let toggleHighLightMode = false;
 
   toggleButton.addEventListener("click", function () {
-    const btnValue = toggleButton.textContent.toString();
-    if (btnValue.startsWith("E")) {
-      alert("do something!");
-      toggleHighLightMode = true;
-      updateButtonState(toggleHighLightMode);
+    toggleHighLightMode = !toggleHighLightMode;
+    if (toggleHighLightMode) {
+      this.textContent = "Enable";
       sendMessageToContentScript(toggleHighLightMode);
     } else {
-      alert("do nothing");
-      updateButtonState(toggleHighLightMode);
+      this.textContent = "Disable";
     }
   });
 
   function updateButtonState(toggleHighLightMode) {
     toggleButton.textContent = toggleHighLightMode ? "Enable" : "Disable";
     console.log("called");
-    
   }
 
   function sendMessageToContentScript(isHighLightMode) {
