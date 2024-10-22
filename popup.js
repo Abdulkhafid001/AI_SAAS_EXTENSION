@@ -1,62 +1,20 @@
-// document.addEventListener("DOMContentLoaded", function () {
-//   const toggleButton = document.getElementById("toggleHighlight");
-
-//   // Get the current state from storage
-//   chrome.storage.local.get("highlightMode", function (data) {
-//     const isHighlightMode = data.highlightMode || false;
-//     updateButtonState(isHighlightMode);
-//   });
-
-//   toggleButton.addEventListener("click", function () {
-//     chrome.storage.local.get("highlightMode", function (data) {
-//       const newState = !data.highlightMode;
-//       chrome.storage.local.set({ highlightMode: newState }, function () {
-//         updateButtonState(newState);
-//         sendMessageToContentScript(newState);
-//       });
-//     });
-//   });
-
-//   function updateButtonState(isHighlightMode) {
-//     toggleButton.textContent = isHighlightMode
-//       ? "Disable Highlight Mode"
-//       : "Enable Highlight Mode";
-//   }
-
-//   function sendMessageToContentScript(isHighlightMode) {
-//     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-//       chrome.tabs.sendMessage(tabs[0].id, {
-//         action: "toggleHighlightMode",
-//         enable: isHighlightMode,
-//       });
-//     });
-//   }
-// });
-
 document.addEventListener("DOMContentLoaded", function () {
   const toggleButton = document.getElementById("toggleHighlight");
   let toggleHighLightMode = false;
 
   toggleButton.addEventListener("click", function () {
-    toggleHighLightMode = !toggleHighLightMode;
-    if (toggleHighLightMode) {
-      this.textContent = "Enable";
-      sendMessageToContentScript(toggleHighLightMode);
-    } else {
-      this.textContent = "Disable";
-    }
-  });
+    toggleHighLightMode = !toggleHighLightMode; // Toggle the mode
 
-  function updateButtonState(toggleHighLightMode) {
-    toggleButton.textContent = toggleHighLightMode ? "Enable" : "Disable";
-    console.log("called");
-  }
+    // Update button text and state
+    toggleButton.textContent = toggleHighLightMode ? "Disable" : "Enable";
+    sendMessageToContentScript(toggleHighLightMode);
+  });
 
   function sendMessageToContentScript(isHighLightMode) {
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
       chrome.tabs.sendMessage(tabs[0].id, {
         action: "toggleHighLightMode",
-        enable: isHighLightMode,
+        enable: isHighLightMode, // Pass the current mode to the content script
       });
     });
   }
