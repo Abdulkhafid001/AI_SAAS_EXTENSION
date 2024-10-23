@@ -12,3 +12,4 @@ vscode
 .env
 keys.js
 node_modules
+dist
