@@ -6,9 +6,7 @@ chrome.runtime.onMessage.addListener((request) => {
   }
 });
 
-chrome.runtime.sendMessage("getApiKey", (response) => {
-  console.log("API Key:", response);
-});
+
 
 // When text is selected, check the state from storage
 document.addEventListener("mouseup", function () {
