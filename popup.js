@@ -1,20 +1,27 @@
 document.addEventListener("DOMContentLoaded", function () {
   const toggleButton = document.getElementById("toggleHighlight");
-  let toggleHighLightMode = false;
+
+  // Initialize button text based on stored value
+  chrome.storage.local.get(["isHighLightMode"], function (result) {
+    const isHighLightMode = result.isHighLightMode || false;
+    toggleButton.textContent = isHighLightMode ? "Disable" : "Enable";
+  });
 
   toggleButton.addEventListener("click", function () {
-    toggleHighLightMode = !toggleHighLightMode; // Toggle the mode
+    chrome.storage.local.get(["isHighLightMode"], function (result) {
+      const isHighLightMode = !(result.isHighLightMode || false); // Toggle the mode
+      toggleButton.textContent = isHighLightMode ? "Disable" : "Enable";
 
-    // Update button text and state
-    toggleButton.textContent = toggleHighLightMode ? "Disable" : "Enable";
-    sendMessageToContentScript(toggleHighLightMode);
+      // Send the new state to the content script
+      sendMessageToContentScript(isHighLightMode);
+    });
   });
 
   function sendMessageToContentScript(isHighLightMode) {
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
       chrome.tabs.sendMessage(tabs[0].id, {
         action: "toggleHighLightMode",
-        enable: isHighLightMode, // Pass the current mode to the content script
+        enable: isHighLightMode,
       });
     });
   }

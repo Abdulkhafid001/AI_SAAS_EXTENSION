@@ -1,19 +1,19 @@
-let isHighLightMode = false;
-
-// Listen for messages from the background or popup script
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+chrome.runtime.onMessage.addListener((request) => {
   if (request.action === "toggleHighLightMode") {
-    isHighLightMode = request.enable; // Update highlight mode
-    console.log(`Highlight mode is now: ${isHighLightMode}`);
+    chrome.storage.local.set({ isHighLightMode: request.enable }, function () {
+      console.log(`Highlight mode is now: ${request.enable}`);
+    });
   }
 });
 
-// Capture highlighted text when mouse button is released
+// When text is selected, check the state from storage
 document.addEventListener("mouseup", function () {
-  if (isHighLightMode) {
-    const selectedText = window.getSelection().toString().trim();
-    if (selectedText) {
-      alert(`Selected text: ${selectedText}`);
+  chrome.storage.local.get(["isHighLightMode"], function (result) {
+    if (result.isHighLightMode) {
+      const selectedText = window.getSelection().toString().trim();
+      if (selectedText) {
+        alert(`Selected text: ${selectedText}`);
+      }
     }
-  }
+  });
 });
