@@ -1,6 +1,13 @@
 chrome.runtime.onInstalled.addListener(() => {
   console.log("Text Highlighter extension installed");
-  // chrome.storage.local.set({ highlightMode: false }, function () {
-  //   console.log("Highlight mode initialized to false");
-  // });
+});
+
+let lastSelectedText = "";
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  if (request.action == "textSelected") {
+    lastSelectedText = request.text;
+    console.log(
+      `lastSelectedText: ${lastSelectedText} from background.js file send request to API!`
+    );
+  }
 });

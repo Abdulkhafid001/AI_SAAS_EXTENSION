@@ -12,6 +12,10 @@ document.addEventListener("mouseup", function () {
     if (result.isHighLightMode) {
       const selectedText = window.getSelection().toString().trim();
       if (selectedText) {
+        chrome.runtime.sendMessage({
+          action: "textSelected",
+          text: selectedText,
+        });
         alert(`Selected text: ${selectedText}`);
       }
     }
