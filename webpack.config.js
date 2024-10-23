@@ -1,8 +1,8 @@
 const path = require("path");
 
 module.exports = {
-  entry: "./keys.js", // Entry point for your JS files
-  output: {
+  entry: "./background.js", // Entry point for your JS files
+  output: { 
     filename: "bundle.js", // Output file
     path: path.resolve(__dirname, "dist"),
   },
