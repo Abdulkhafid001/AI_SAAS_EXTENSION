@@ -1,3 +1,5 @@
+import { apiKey } from "./keys";
+
 chrome.runtime.onMessage.addListener((request) => {
   if (request.action === "toggleHighLightMode") {
     chrome.storage.local.set({ isHighLightMode: request.enable }, function () {
@@ -17,6 +19,7 @@ document.addEventListener("mouseup", function () {
           text: selectedText,
         });
         alert(`Selected text: ${selectedText}`);
+        console.log(apiKey);
       }
     }
   });
