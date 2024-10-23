@@ -6,13 +6,15 @@ chrome.runtime.onMessage.addListener((request) => {
   }
 });
 
-
-
 // When text is selected, check the state from storage
 document.addEventListener("mouseup", function () {
   chrome.storage.local.get(["isHighLightMode"], function (result) {
     if (result.isHighLightMode) {
       const selectedText = window.getSelection().toString().trim();
+      chrome.runtime.sendMessage({
+        action: "textSelected",
+        text: selectedText,
+      });
       if (selectedText) {
         alert(`Selected text: ${selectedText}`);
       }
