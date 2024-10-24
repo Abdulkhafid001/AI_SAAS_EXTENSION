@@ -24,7 +24,7 @@
                 "<all_urls>"
             ],
             "js": [
-                "content.js"
+                "scripts/content.js"
             ]
         }
     ]
