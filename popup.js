@@ -26,3 +26,4 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 });
+console.log("this is a pop up");
