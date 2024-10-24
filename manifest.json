@@ -1,8 +1,8 @@
 {
     "manifest_version": 3,
-    "name": "Background Color Changer",
+    "name": "Reading Time",
     "version": "1.0",
-    "description": "Changes the background color of web pages",
+    "description": "Add the reading time to Chrome Extension documentation articles",
     "permissions": [
         "activeTab",
         "scripting",
@@ -13,7 +13,7 @@
     ],
     "action": {
         "default_popup": "popup.html",
-        "default_icon": "extension_logo.png"
+        "default_icon": "images/extension_logo.png"
     },
     "background": {
         "service_worker": "background.js"
