@@ -10,10 +10,10 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 });
 
 const extensions = "https://developer.chrome.com/docs/extensions";
-const webstore = "https://developer.chrome.com/docs/webstore";
+const djangodocs = "https://docs.djangoproject.com/en/5.1/";
 
 chrome.action.onClicked.addListener(async (tab) => {
-  if (tab.url.startsWith(extensions) || tab.url.startsWith(webstore)) {
+  if (tab.url.startsWith(extensions) || tab.url.startsWith(djangodocs)) {
     const previousState = await chrome.action.getBadgeText({ tabId: tab.id });
 
     const nextState = previousState === "ON" ? "OFF" : "ON";
