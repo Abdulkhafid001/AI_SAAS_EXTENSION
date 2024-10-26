@@ -12,11 +12,18 @@
         "https://api.example.com/*"
     ],
     "action": {
-        "default_popup": "popup.html",
         "default_icon": "images/extension_logo.png"
     },
     "background": {
         "service_worker": "background.js"
+    },
+    "commands": {
+        "_execute_action": {
+            "suggested_key": {
+                "default": "Ctrl+B",
+                "mac": "Command+B"
+            }
+        }
     },
     "content_scripts": [
         {

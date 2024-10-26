@@ -22,13 +22,14 @@ document.addEventListener("mouseup", function () {
   });
 });
 
-const article = document.querySelector("article");
+const article = document.querySelector("body");
 if (article) {
   const text = article.textContent;
   const wordMatchRegExp = /[^\s]+/g;
   const words = text.matchAll(wordMatchRegExp);
   const wordCount = [...words].length;
   const readingTime = Math.round(wordCount / 200);
+  console.log("word in page: " + readingTime);
 
   const badge = document.createElement("p");
   badge.classList.add("color-secondary-text", "type--caption");
