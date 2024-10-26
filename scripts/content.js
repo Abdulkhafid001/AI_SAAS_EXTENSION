@@ -66,5 +66,3 @@ function createDomElement(html) {
   const dom = new DOMParser().parseFromString(html, "text/html");
   return dom.body.firstElementChild;
 }
-
-
