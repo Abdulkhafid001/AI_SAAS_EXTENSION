@@ -1,15 +1,19 @@
 {
     "manifest_version": 3,
     "name": "Reading Time",
-    "version": "1.0",
+    "minimum_chrome_version": "102",
+    "omnibox": {
+        "keyword": "api"
+    },
     "description": "Add the reading time to Chrome Extension documentation articles",
     "permissions": [
         "activeTab",
         "scripting",
-        "storage"
+        "storage",
+        "alarms"
     ],
     "host_permissions": [
-        "https://api.example.com/*"
+        "https://extension-tips.glitch.me/*"
     ],
     "action": {
         "default_icon": "images/extension_logo.png"
@@ -32,7 +36,8 @@
                 "<all_urls>",
                 "https://developer.chrome.com/docs/extensions/*",
                 "https://developer.chrome.com/docs/webstore/*",
-                "https://developer.chrome.com/docs/devtools/*"
+                "https://developer.chrome.com/docs/devtools/*",
+                "https://developer.chrome.com/docs/extensions/reference/*"
             ],
             "js": [
                 "scripts/content.js"
