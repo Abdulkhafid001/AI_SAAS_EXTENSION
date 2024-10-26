@@ -15,7 +15,8 @@
         "default_icon": "images/extension_logo.png"
     },
     "background": {
-        "service_worker": "background.js"
+        "service_worker": "background.js",
+        "type": "module"
     },
     "commands": {
         "_execute_action": {
