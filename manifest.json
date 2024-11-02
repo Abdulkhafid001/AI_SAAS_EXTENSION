@@ -2,15 +2,15 @@
     "name": "Reading Time",
     "version": "1.0.0",
     "manifest_version": 3,
-    "minimum_chrome_version": "102",
     "description": "Add the reading time to Chrome Extension documentation articles",
     "permissions": [
+        "<all_urls>",
         "activeTab",
         "scripting",
         "storage"
     ],
     "host_permissions": [
-        "https://extension-tips.glitch.me/*"
+        "*://*/*"
     ],
     "action": {
         "default_popup": "popup.html",
