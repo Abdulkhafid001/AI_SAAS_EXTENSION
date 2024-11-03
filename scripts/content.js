@@ -5,6 +5,10 @@ chrome.runtime.onMessage.addListener((request) => {
     });
   }
 });
+chrome.runtime.onMessage.addListener((request) => {
+  if (request.action === "logApiRequest") {
+  }
+});
 
 // When text is selected, check the state from storage
 document.addEventListener("mouseup", function () {
@@ -12,7 +16,7 @@ document.addEventListener("mouseup", function () {
     if (result.isHighLightMode) {
       const selectedText = window.getSelection().toString().trim();
       chrome.runtime.sendMessage({
-        action: "textSelected",
+        action: "makeApiRequest",
         text: selectedText,
       });
       if (selectedText) {
