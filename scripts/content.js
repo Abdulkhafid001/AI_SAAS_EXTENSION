@@ -7,6 +7,7 @@ chrome.runtime.onMessage.addListener((request) => {
 });
 chrome.runtime.onMessage.addListener((request) => {
   if (request.action === "logApiRequest") {
+    console.log("time to send ");
     
   }
 });

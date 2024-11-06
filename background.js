@@ -3,14 +3,16 @@
 //     text: "OFF",
 //   });
 // });
+
+let wordMeaning = {};
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.action === "makeApiRequest") {
     let highlightedWord = message.text;
-    sendApiResponseToContentScript(highlightedWord);
+    wordMeaning = getSelectedWordMeaningFromApi(highlightedWord);
+    saveApiResponseToStorage();
+    sendApiResponseToContentScript();
   }
 });
-
-
 
 function getSelectedWordMeaningFromApi(highlightedWord) {
   let wordMeaning = {};
@@ -38,16 +40,14 @@ function getSelectedWordMeaningFromApi(highlightedWord) {
 }
 
 function saveApiResponseToStorage() {
-  chrome.storage.local
-    .set({ wordMeaning: getSelectedWordMeaningFromApi(highlightedWord) })
-    .then(() => {
-      console.log("value was set");
-    });
+  chrome.storage.local.set({ wordMeaning: wordMeaning }).then(() => {
+    console.log("word meaning has been saved!");
+  });
 }
 
-function sendApiResponseToContentScript(highlightedWord) {
+function sendApiResponseToContentScript() {
   chrome.runtime.sendMessage({
     action: "logApiRequest",
-    apiResponse: getSelectedWordMeaningFromApi(highlightedWord),
+    apiResponse: wordMeaning,
   });
 }

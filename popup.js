@@ -26,4 +26,14 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 });
-console.log("this is a pop up");
+
+function displayWordMeaning() {
+  let paragraph = document.getElementById("result").firstChild();
+  chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    if (message.action == "logApiRequest") {
+      chrome.storage.local.get(["wordMeaning"]).then((result) => {
+        console.log("Value is " + result.key);
+      });
+    }
+  });
+}
