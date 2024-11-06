@@ -6,10 +6,11 @@
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.action === "makeApiRequest") {
     let highlightedWord = message.text;
-    // getSelectedWordMeaningFromApi(highlightedWord);
     sendApiResponseToContentScript(highlightedWord);
   }
 });
+
+
 
 function getSelectedWordMeaningFromApi(highlightedWord) {
   let wordMeaning = {};
@@ -34,6 +35,14 @@ function getSelectedWordMeaningFromApi(highlightedWord) {
       console.error("Error fetching data:", error);
     });
   return wordMeaning;
+}
+
+function saveApiResponseToStorage() {
+  chrome.storage.local
+    .set({ wordMeaning: getSelectedWordMeaningFromApi(highlightedWord) })
+    .then(() => {
+      console.log("value was set");
+    });
 }
 
 function sendApiResponseToContentScript(highlightedWord) {
