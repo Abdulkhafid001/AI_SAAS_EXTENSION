@@ -5,17 +5,15 @@
 // });
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.action === "makeApiRequest") {
-    let selectedWord = message.text;
-    getSelectedWordMeaningFromApi(selectedWord);
-    console.log(getSelectedWordMeaningFromApi(selectedWord));
-
-    sendMessageToContentScript(selectedWord);
+    let highlightedWord = message.text;
+    // getSelectedWordMeaningFromApi(highlightedWord);
+    sendApiResponseToContentScript(highlightedWord);
   }
 });
 
-function getSelectedWordMeaningFromApi(selectedWord) {
+function getSelectedWordMeaningFromApi(highlightedWord) {
   let wordMeaning = {};
-  const apiUrl = `https://api.dictionaryapi.dev/api/v2/entries/en/${selectedWord}`;
+  const apiUrl = `https://api.dictionaryapi.dev/api/v2/entries/en/${highlightedWord}`;
   fetch(apiUrl, {
     method: "GET",
     headers: {
@@ -30,7 +28,7 @@ function getSelectedWordMeaningFromApi(selectedWord) {
     })
     .then((data) => {
       wordMeaning = data;
-      console.log("Data received:", data);
+      console.log("Data received:", wordMeaning);
     })
     .catch((error) => {
       console.error("Error fetching data:", error);
@@ -38,9 +36,9 @@ function getSelectedWordMeaningFromApi(selectedWord) {
   return wordMeaning;
 }
 
-function sendMessageToContentScript(selectedWord) {
+function sendApiResponseToContentScript(highlightedWord) {
   chrome.runtime.sendMessage({
     action: "logApiRequest",
-    apiResponse: getSelectedWordMeaningFromApi(selectedWord),
+    apiResponse: getSelectedWordMeaningFromApi(highlightedWord),
   });
 }
