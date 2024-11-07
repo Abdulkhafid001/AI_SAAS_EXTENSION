@@ -15,10 +15,15 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         wordMeaning = data;
         saveApiResponseToStorage(wordMeaning);
         sendApiResponseToContentScript(wordMeaning);
-        console.log(wordMeaning[0].meanings[0].definitions[0].definition);
-        console.log(wordMeaning[0].meanings[0].partOfSpeech);
-        console.log(wordMeaning[0].meanings[0].definitions[0].definition);
-        console.log(wordMeaning[0].meanings[0].definitions[0].definition);
+        for (
+          let i = 0;
+          i < wordMeaning[0].meanings[0].definitions.length;
+          i++
+        ) {
+          console.log(wordMeaning[0].meanings[0].definitions[i].definition);
+        }
+
+        console.log(wordMeaning[0].word);
       })
       .catch((error) => {
         console.error("Error fetching word meaning:", error);

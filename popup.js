@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function displayWordMeaning() {
   // let paragraph = document.getElementById("result").firstChild();
-  chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  chrome.runtime.onMessage.addListener((message) => {
     if (message.action == "logApiRequest") {
       chrome.storage.local.get(["wordMeaning"]).then((result) => {
         console.log("Value is " + result.WordMeaning);
