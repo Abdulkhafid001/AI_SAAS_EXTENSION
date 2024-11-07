@@ -5,49 +5,53 @@
 // });
 
 let wordMeaning = {};
+
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.action === "makeApiRequest") {
     let highlightedWord = message.text;
-    wordMeaning = getSelectedWordMeaningFromApi(highlightedWord);
-    saveApiResponseToStorage();
-    sendApiResponseToContentScript();
+
+    getSelectedWordMeaningFromApi(highlightedWord)
+      .then((data) => {
+        wordMeaning = data;
+        saveApiResponseToStorage(wordMeaning);
+        sendApiResponseToContentScript(wordMeaning);
+        console.log(wordMeaning[0].meanings[0].definitions[0].definition);
+        console.log(wordMeaning[0].meanings[0].partOfSpeech);
+        console.log(wordMeaning[0].meanings[0].definitions[0].definition);
+        console.log(wordMeaning[0].meanings[0].definitions[0].definition);
+      })
+      .catch((error) => {
+        console.error("Error fetching word meaning:", error);
+      });
   }
 });
 
-function getSelectedWordMeaningFromApi(highlightedWord) {
-  let wordMeaning = {};
+async function getSelectedWordMeaningFromApi(highlightedWord) {
   const apiUrl = `https://api.dictionaryapi.dev/api/v2/entries/en/${highlightedWord}`;
-  fetch(apiUrl, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      return response.json();
-    })
-    .then((data) => {
-      wordMeaning = data;
-      console.log("Data received:", wordMeaning);
-    })
-    .catch((error) => {
-      console.error("Error fetching data:", error);
-    });
-  return wordMeaning;
+
+  try {
+    const response = await fetch(apiUrl);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+    console.log("Data received:", data);
+    return data;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    return {};
+  }
 }
 
-function saveApiResponseToStorage() {
-  chrome.storage.local.set({ wordMeaning: wordMeaning }).then(() => {
-    console.log("word meaning has been saved!");
+function saveApiResponseToStorage(data) {
+  chrome.storage.local.set({ wordMeaning: data }).then(() => {
+    console.log("Word meaning has been saved!");
   });
 }
 
-function sendApiResponseToContentScript() {
+function sendApiResponseToContentScript(data) {
   chrome.runtime.sendMessage({
     action: "logApiRequest",
-    apiResponse: wordMeaning,
+    apiResponse: data,
   });
 }

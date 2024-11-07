@@ -6,11 +6,7 @@ chrome.runtime.onMessage.addListener((request) => {
   }
 });
 
-chrome.runtime.onMessage.addListener((request) => {
-  if (request.action === "logApiRequest") {
-    console.log("time to send ");
-  }
-});
+
 
 // When text is selected, check the state from storage
 document.addEventListener("mouseup", function () {
