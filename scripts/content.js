@@ -6,18 +6,13 @@ chrome.runtime.onMessage.addListener((request) => {
   }
 });
 
-
-
 // When text is selected, check the state from storage
 document.addEventListener("mouseup", function () {
   chrome.storage.local.get(["isHighLightMode"], function (result) {
     if (result.isHighLightMode) {
       const selectedText = window.getSelection().toString().trim();
-      chrome.runtime.sendMessage({
-        action: "makeApiRequest",
-        text: selectedText,
-      });
       if (selectedText) {
+        chrome.runtime.sendMessage({ word: selectedText });
         alert(`Selected text: ${selectedText}`);
       }
     }
