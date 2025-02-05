@@ -8,10 +8,39 @@
 </head>
 
 <body>
-    <h1>test page is idiosyncratic to Peter Thiel or Barack Obama </h1>
+    <!-- <h1>test page is idiosyncratic to Peter Thiel or Barack Obama </h1>
     <article>
        <p>repudiate abject dilapidated constraint</p>
-    </article>
+    </article> -->
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Synonym & Antonym Game</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+
+    <body>
+        <div class="container">
+            <h1>Synonym & Antonym Game</h1>
+            <div id="input-section">
+                <label for="sentence">Enter a sentence:</label>
+                <input type="text" id="sentence" placeholder="e.g., The quick brown fox jumps over the lazy dog">
+                <button id="submit-sentence">Submit</button>
+            </div>
+            <div id="game-section" class="hidden">
+                <p id="adjective-prompt"></p>
+                <div id="options"></div>
+                <button id="submit-answer" class="hidden">Submit Answer</button>
+                <p id="feedback"></p>
+            </div>
+        </div>
+        <script src="synonymscript.js"></script>
+    </body>
+   
+    </html>
 </body>
 
 </html>
